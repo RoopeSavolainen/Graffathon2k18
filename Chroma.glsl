@@ -9,7 +9,7 @@ uniform float chroma;
 
 varying vec4 vertTexCoord;
 
-vec4 chromatic_aberration(vec4 c) {
+vec4 chromatic_aberration() {
     float g = texture2D(texture, vertTexCoord.st).g;
     float r = texture2D(texture, vec2(vertTexCoord.s+chroma, vertTexCoord.t)).r;
     float b = texture2D(texture, vec2(vertTexCoord.s-chroma, vertTexCoord.t)).b;
@@ -17,6 +17,5 @@ vec4 chromatic_aberration(vec4 c) {
 }
 
 void main() {
-	vec4 color = texture2D(texture, vertTexCoord.st);
-    gl_FragColor = chromatic_aberration(color);
+    gl_FragColor = chromatic_aberration();
 }
