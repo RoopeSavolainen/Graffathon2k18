@@ -15,7 +15,13 @@ float chroma_intens;
 int neon_intens;
 
 static int particlenum = 128;
+static int rainnum = 32;
 
+float[] dropx = new float[rainnum];
+PVector[] dropdir = new PVector[rainnum];
+float[] dropcol = new float[rainnum];
+float[] droplen = new float[rainnum];
+  
 PShader white, chroma, neon;
 PShape[] platonics = new PShape[5];
 
@@ -46,6 +52,19 @@ void setup() {
     particle_v[i] = new PVector(dx, dy);
   }
   
+  for (int i = 0; i < rainnum; i++) {
+    float x = random(-720.0, 720.0);
+    float dx = random(-10.0, 10.0);
+    float dy = random(30.0, 100.0);
+    float hue = random(0.0, 360.0);
+    float len = random(50.0, 100.0);
+    
+    dropx[i] = x;
+    dropdir[i] = new PVector(dx,dy);
+    dropcol[i] = hue;
+    droplen[i] = len;
+  }
+  
   ml = Moonlander.initWithSoundtrack(this, "The_Polish_Ambassador_-_09_-_Fax_Travel.mp3", 120, 4);
   ml.start();
   
@@ -64,7 +83,7 @@ void setup() {
 
 void draw() {
   ml.update();
-  colorMode(HSB, 360.0, 100.0, 100.0);
+  frame.colorMode(HSB, 360.0, 100.0, 100.0);
   
   int scene = (int)ml.getValue("scene");
   whiteout = (float)ml.getValue("whiteout");
@@ -87,6 +106,9 @@ void draw() {
       break;
     case 4:
       platon();
+      break;
+    case 5:
+      neon_rain();
       break;
   }
   frame.endDraw();
@@ -185,7 +207,7 @@ void particles() {
   frame.stroke(0.0, 0.0, 25.0, 255.0);
   frame.fill(0.0, 0.0, 10.0, 255.0);
   
-  float t = (float)ml.getValue("particle_t"); 
+  float t = (float)ml.getValue("particle_t");
   for (int i = 0; i < particlenum; i++) {
     frame.ellipse(particles[i].x + t*particle_v[i].y, particles[i].y + t*particle_v[i].y, 10, 10);
   }
@@ -202,5 +224,23 @@ void particles() {
       frame.stroke(0.0, 0.0, 25.0, a);
       frame.line(pos1.x, pos1.y, pos2.x, pos2.y);
     }
+  }
+}
+
+void neon_rain() {
+  frame.background(0.0);
+  frame.strokeWeight(2.5);
+  
+  float t = (float)ml.getValue("drop_t");
+  
+  for (int i = 0; i < rainnum; i++) {
+    frame.stroke(dropcol[i], 60.0, 60.0, 32.0);
+    float x1 = dropx[i] + t*dropdir[i].x;
+    float y1 = -360 + t*dropdir[i].y - i*dropdir[i].y;
+    
+    float x2 = x1 - droplen[i]*dropdir[i].x;
+    float y2 = y1 - droplen[i]*dropdir[i].y;
+    
+    frame.line(x1, y1, x2, y2);
   }
 }
