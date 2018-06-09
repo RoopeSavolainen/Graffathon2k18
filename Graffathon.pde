@@ -14,7 +14,7 @@ float whiteout;
 float chroma_intens;
 int neon_intens;
 
-static int particlenum = 128;
+static int particlenum = 64;
 static int rainnum = 32;
 
 float[] dropx = new float[rainnum];
@@ -109,6 +109,9 @@ void draw() {
       break;
     case 5:
       neon_rain();
+      break;
+    case 6:
+      particles();
       break;
   }
   frame.endDraw();
@@ -208,15 +211,29 @@ void particles() {
   frame.fill(0.0, 0.0, 10.0, 255.0);
   
   float t = (float)ml.getValue("particle_t");
+  float noise = (float)ml.getValue("particle_noise");
+  
+  PVector[] displacement = new PVector[particlenum];
   for (int i = 0; i < particlenum; i++) {
-    frame.ellipse(particles[i].x + t*particle_v[i].y, particles[i].y + t*particle_v[i].y, 10, 10);
+    if (noise > 0.0) {
+      float x = noise((float)i, 0.0, t) * noise;
+      float y = noise((float)i, 10.0, t) * noise;
+      displacement[i] = new PVector(x,y);
+    }
+    else {
+      displacement[i] = new PVector(0.0, 0.0);
+    }
+  }
+  
+  for (int i = 0; i < particlenum; i++) {
+    frame.ellipse(particles[i].x + t*particle_v[i].x + displacement[i].x, particles[i].y + t*particle_v[i].y + displacement[i].y, 10, 10);
   }
   
   frame.strokeWeight(2.0);
   for (int i = 0; i < particlenum; i++) {
     for (int j = i; j < particlenum; j++) {
-      PVector pos1 = new PVector(particles[i].x + t*particle_v[i].y, particles[i].y + t*particle_v[i].y);
-      PVector pos2 = new PVector(particles[j].x + t*particle_v[j].y, particles[j].y + t*particle_v[j].y);
+      PVector pos1 = new PVector(particles[i].x + t*particle_v[i].x + displacement[i].x, particles[i].y + t*particle_v[i].y + displacement[i].y);
+      PVector pos2 = new PVector(particles[j].x + t*particle_v[j].x + displacement[j].x, particles[j].y + t*particle_v[j].y + displacement[j].y);
       float distx = pos1.x - pos2.x;
       float disty = pos1.y - pos2.y;
       float dist = sqrt(distx*distx + disty*disty);
