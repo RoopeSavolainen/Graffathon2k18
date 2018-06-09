@@ -1,0 +1,46 @@
+<sync rows="128">
+	<tracks>
+		<track name="scene">
+			<key value="1" interpolation="0" row="0"/>
+			<key value="2" interpolation="0" row="96"/>
+		</track>
+		<track name="whiteout">
+			<key value="0" interpolation="0" row="0"/>
+		</track>
+		<track name="chroma">
+			<key value="0" interpolation="0" row="0"/>
+		</track>
+		<track name="blurring">
+			<key value="0" interpolation="0" row="0"/>
+		</track>
+		<track name="pulse">
+			<key value="0" interpolation="0" row="0"/>
+			<key value="0" interpolation="3" row="15"/>
+			<key value="2" interpolation="3" row="16"/>
+			<key value="0" interpolation="0" row="18"/>
+			<key value="0" interpolation="3" row="23"/>
+			<key value="2" interpolation="3" row="24"/>
+			<key value="0" interpolation="0" row="26"/>
+			<key value="0" interpolation="3" row="31"/>
+			<key value="2" interpolation="3" row="32"/>
+			<key value="0" interpolation="0" row="34"/>
+			<key value="0" interpolation="3" row="39"/>
+			<key value="2" interpolation="3" row="40"/>
+			<key value="0" interpolation="0" row="42"/>
+			<key value="0" interpolation="3" row="47"/>
+			<key value="2" interpolation="3" row="48"/>
+			<key value="0" interpolation="0" row="50"/>
+			<key value="0" interpolation="3" row="55"/>
+			<key value="2" interpolation="3" row="56"/>
+			<key value="0" interpolation="0" row="58"/>
+			<key value="0" interpolation="3" row="63"/>
+			<key value="2" interpolation="3" row="64"/>
+			<key value="0" interpolation="0" row="66"/>
+		</track>
+		<track name="opening">
+			<key value="0" interpolation="2" row="84"/>
+			<key value="1" interpolation="0" row="92"/>
+		</track>
+	</tracks>
+	<bookmarks/>
+</sync>
