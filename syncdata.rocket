@@ -31,7 +31,14 @@
 			<key interpolation="0" row="888" value="0.005"/>
 			<key interpolation="2" row="1032" value="0.005"/>
 			<key interpolation="0" row="1056" value="0.05"/>
-			<key interpolation="0" row="1057" value="0.001"/>
+			<key interpolation="0" row="1057" value="0"/>
+			<key interpolation="1" row="1064" value="0"/>
+			<key interpolation="0" row="1080" value="0.005"/>
+			<key interpolation="0" row="1082" value="0"/>
+			<key interpolation="0" row="1084" value="0.005"/>
+			<key interpolation="0" row="1086" value="0"/>
+			<key interpolation="0" row="1088" value="0.005"/>
+			<key interpolation="0" row="1176" value="0"/>
 		</track>
 		<track name="blurring">
 			<key interpolation="0" row="0" value="0"/>
@@ -46,6 +53,7 @@
 			<key interpolation="2" row="1032" value="1"/>
 			<key interpolation="0" row="1056" value="4"/>
 			<key interpolation="0" row="1057" value="1"/>
+			<key interpolation="0" row="1176" value="1"/>
 		</track>
 		<track name="particle_t">
 			<key interpolation="1" row="296" value="0"/>
@@ -134,6 +142,21 @@
 			<key interpolation="0" row="511" value="100"/>
 			<key interpolation="2" row="512" value="150"/>
 			<key interpolation="0" row="520" value="50"/>
+			<key interpolation="0" row="1057" value="40"/>
+			<key interpolation="0" row="1082" value="39"/>
+			<key interpolation="0" row="1084" value="40"/>
+			<key interpolation="0" row="1086" value="39"/>
+			<key interpolation="0" row="1088" value="40"/>
+			<key interpolation="2" row="1096" value="40"/>
+			<key interpolation="2" row="1100" value="50"/>
+			<key interpolation="2" row="1104" value="40"/>
+			<key interpolation="2" row="1108" value="50"/>
+			<key interpolation="0" row="1112" value="40"/>
+			<key interpolation="2" row="1120" value="40"/>
+			<key interpolation="2" row="1124" value="50"/>
+			<key interpolation="2" row="1128" value="40"/>
+			<key interpolation="2" row="1132" value="50"/>
+			<key interpolation="0" row="1136" value="40"/>
 		</track>
 		<track name="scene">
 			<key interpolation="0" row="0" value="1"/>
@@ -145,6 +168,7 @@
 			<key interpolation="0" row="808" value="7"/>
 			<key interpolation="0" row="904" value="8"/>
 			<key interpolation="0" row="1057" value="9"/>
+			<key interpolation="0" row="1176" value="10"/>
 		</track>
 		<track name="platon_roty">
 			<key interpolation="1" row="134" value="0"/>
@@ -157,6 +181,10 @@
 			<key interpolation="1" row="808" value="0"/>
 			<key interpolation="0" row="904" value="9"/>
 			<key interpolation="0" row="1057" value="0"/>
+			<key interpolation="3" row="1144" value="0"/>
+			<key interpolation="1" row="1152" value="-3.14"/>
+			<key interpolation="0" row="1168" value="-12.56"/>
+			<key interpolation="0" row="1176" value="0"/>
 		</track>
 		<track name="platon_rotz">
 			<key interpolation="2" row="214" value="0"/>
@@ -186,6 +214,7 @@
 		<track name="drop_t">
 			<key interpolation="1" row="576" value="0"/>
 			<key interpolation="0" row="712" value="52"/>
+			<key interpolation="0" row="1176" value="52"/>
 		</track>
 		<track name="terrain_t">
 			<key interpolation="1" row="904" value="0"/>
