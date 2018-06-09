@@ -21,12 +21,12 @@
 			<key row="712" interpolation="0" value="0"/>
 			<key row="808" interpolation="0" value="0.005"/>
 			<key row="864" interpolation="0" value="0"/>
-			<key row="872" interpolation="0" value="0.005"/>
+			<key row="872" interpolation="0" value="0.01"/>
 			<key row="876" interpolation="0" value="0"/>
-			<key row="880" interpolation="0" value="0.005"/>
+			<key row="880" interpolation="0" value="0.02"/>
 			<key row="882" interpolation="0" value="0.005"/>
 			<key row="884" interpolation="0" value="0"/>
-			<key row="886" interpolation="0" value="0.005"/>
+			<key row="886" interpolation="0" value="0.02"/>
 			<key row="887" interpolation="0" value="0"/>
 			<key row="888" interpolation="0" value="0.005"/>
 			<key row="1032" interpolation="2" value="0.005"/>
@@ -44,12 +44,20 @@
 		<track name="blurring">
 			<key row="0" interpolation="0" value="0"/>
 			<key row="96" interpolation="0" value="1"/>
-			<key row="296" interpolation="0" value="2"/>
+			<key row="296" interpolation="0" value="4"/>
+			<key row="320" interpolation="2" value="4"/>
+			<key row="336" interpolation="2" value="0.5"/>
+			<key row="352" interpolation="0" value="4"/>
+			<key row="368" interpolation="2" value="4"/>
+			<key row="376" interpolation="2" value="0.5"/>
+			<key row="384" interpolation="2" value="2"/>
+			<key row="392" interpolation="2" value="0.5"/>
+			<key row="400" interpolation="0" value="4"/>
 			<key row="416" interpolation="0" value="1"/>
 			<key row="712" interpolation="0" value="2"/>
-			<key row="808" interpolation="0" value="1"/>
-			<key row="824" interpolation="1" value="1"/>
-			<key row="840" interpolation="2" value="0"/>
+			<key row="808" interpolation="0" value="2"/>
+			<key row="824" interpolation="1" value="2"/>
+			<key row="840" interpolation="1" value="0"/>
 			<key row="856" interpolation="0" value="1"/>
 			<key row="1032" interpolation="2" value="1"/>
 			<key row="1056" interpolation="0" value="4"/>
@@ -185,8 +193,8 @@
 			<key row="498" interpolation="3" value="50"/>
 			<key row="499" interpolation="0" value="40"/>
 			<key row="504" interpolation="2" value="40"/>
-			<key row="511" interpolation="0" value="100"/>
-			<key row="512" interpolation="2" value="150"/>
+			<key row="511" interpolation="0" value="75"/>
+			<key row="512" interpolation="2" value="100"/>
 			<key row="520" interpolation="0" value="50"/>
 			<key row="1057" interpolation="0" value="40"/>
 			<key row="1082" interpolation="0" value="39"/>
@@ -217,6 +225,7 @@
 			<key row="1057" interpolation="0" value="9"/>
 			<key row="1176" interpolation="0" value="10"/>
 			<key row="1220" interpolation="0" value="11"/>
+			<key row="1379" interpolation="0" value="12"/>
 		</track>
 		<track name="platon_roty">
 			<key row="134" interpolation="1" value="0"/>
@@ -296,6 +305,10 @@
 			<key row="984" interpolation="2" value="150"/>
 			<key row="992" interpolation="2" value="50"/>
 			<key row="1024" interpolation="0" value="200"/>
+		</track>
+		<track name="scene_rot">
+			<key row="1057" interpolation="1" value="0"/>
+			<key row="1175" interpolation="0" value="-6.28"/>
 		</track>
 	</tracks>
 	<bookmarks/>

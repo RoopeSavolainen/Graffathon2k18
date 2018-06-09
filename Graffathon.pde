@@ -129,6 +129,9 @@ void draw() {
     case 11:
       platon();
       break;
+    case 12:
+      exit();
+      break;
   }
   frame.endDraw();
   
@@ -188,12 +191,18 @@ void platon() {
   float roty = (float)ml.getValue("platon_roty");
   float rotz = (float)ml.getValue("platon_rotz");
   
+  float scene_rot = (float)ml.getValue("scene_rot");
+  
   float zoom = (float)ml.getValue("platon_zoom");
   frame.translate(360 * zoom, 0.0);
   frame.scale(zoom + 1.0);
   
   frame.stroke(10.0, 60, 80, floor);
   frame.strokeWeight(5.0);
+  
+  frame.translate(0.0, 0.0, 450);
+  frame.rotateY(scene_rot);
+  frame.translate(0.0, 0.0, -450);
   
   frame.translate(0.0, 40.0, 400.0);
   for (int i = 0; i <= 10; i++) {
@@ -204,7 +213,7 @@ void platon() {
   if (platonic >= 1 && platonic <= 5) {
     frame.pushMatrix();
     
-    frame.translate(0.0, -50.0, 0.0);
+    frame.translate(0.0, -50.0, 50.0);
     frame.resetShader();
     frame.lights();
     frame.pointLight(0.0, 0.0, 100.0, -50.0, -50.0, 50.0);
