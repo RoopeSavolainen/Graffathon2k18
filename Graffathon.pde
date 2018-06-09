@@ -22,12 +22,14 @@ float[] dropx = new float[rainnum];
 PVector[] dropdir = new PVector[rainnum];
 float[] dropcol = new float[rainnum];
 float[] droplen = new float[rainnum];
-  
+
 PShader white, chroma, neon;
 PShape[] platonics = new PShape[5];
 
 PVector[] particles = new PVector[particlenum];
 PVector[] particle_v = new PVector[particlenum];
+
+PFont f;
 
 void settings() {
   if (release) {
@@ -74,6 +76,8 @@ void setup() {
   neon = loadShader("Neon.glsl");
   
   frame = createGraphics(width, height, P3D);
+  
+  f = loadFont("YanoneKaffeesatz-Regular-48.vlw");
   
   for (int i = 1; i <= 5; i++) {
     String name = "plato" + i + ".obj";
@@ -192,6 +196,27 @@ void platon() {
   float rotz = (float)ml.getValue("platon_rotz");
   
   float scene_rot = (float)ml.getValue("scene_rot");
+  float title_alpha = (float)ml.getValue("title_alpha");
+  
+  int credits = (int)ml.getValue("credits_idx");
+  
+  frame.textFont(f);
+  frame.textSize(48.0);
+  frame.fill(0.0, 0.0, 100.0, title_alpha);
+  frame.text("Platonic Love", -96.0, -100.0, 360.0);
+  
+  frame.textSize(8.0);
+  frame.fill(0.0, 0.0, 100.0, 255.0);
+  switch(credits) {
+    case 3:
+      frame.text("Music:", -80.0, 20.0, 540.0);
+      frame.text("Fax Travel by The Polish Ambassador", -80, 30.0, 540.0);
+    case 2:
+      frame.text("Greets go to everyone at Graffathon 2018", -80.0, 0.0, 540.0);
+    case 1:
+      frame.text("A production by ruuben", -80.0, -20.0, 540.0);
+      break;
+  }
   
   float zoom = (float)ml.getValue("platon_zoom");
   frame.translate(360 * zoom, 0.0);

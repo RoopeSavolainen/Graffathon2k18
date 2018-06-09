@@ -39,7 +39,11 @@
 			<key row="1086" interpolation="0" value="0"/>
 			<key row="1088" interpolation="0" value="0.005"/>
 			<key row="1176" interpolation="0" value="0"/>
-			<key row="1220" interpolation="0" value="0.005"/>
+			<key row="1220" interpolation="0" value="0.002"/>
+			<key row="1320" interpolation="0" value="0.01"/>
+			<key row="1324" interpolation="0" value="0.002"/>
+			<key row="1326" interpolation="0" value="0.01"/>
+			<key row="1328" interpolation="0" value="0.002"/>
 		</track>
 		<track name="blurring">
 			<key row="0" interpolation="0" value="0"/>
@@ -55,6 +59,8 @@
 			<key row="400" interpolation="0" value="4"/>
 			<key row="416" interpolation="0" value="1"/>
 			<key row="712" interpolation="0" value="2"/>
+			<key row="776" interpolation="1" value="2"/>
+			<key row="807" interpolation="0" value="1"/>
 			<key row="808" interpolation="0" value="2"/>
 			<key row="824" interpolation="1" value="2"/>
 			<key row="840" interpolation="1" value="0"/>
@@ -64,6 +70,8 @@
 			<key row="1057" interpolation="0" value="1"/>
 			<key row="1176" interpolation="0" value="1"/>
 			<key row="1220" interpolation="0" value="1"/>
+			<key row="1344" interpolation="2" value="1"/>
+			<key row="1360" interpolation="0" value="3"/>
 		</track>
 		<track name="particle_t">
 			<key row="296" interpolation="1" value="0"/>
@@ -211,7 +219,7 @@
 			<key row="1128" interpolation="2" value="40"/>
 			<key row="1132" interpolation="2" value="50"/>
 			<key row="1136" interpolation="0" value="40"/>
-			<key row="1220" interpolation="0" value="40"/>
+			<key row="1220" interpolation="0" value="30"/>
 		</track>
 		<track name="scene">
 			<key row="0" interpolation="0" value="1"/>
@@ -309,6 +317,22 @@
 		<track name="scene_rot">
 			<key row="1057" interpolation="1" value="0"/>
 			<key row="1175" interpolation="0" value="-6.28"/>
+		</track>
+		<track name="title_alpha">
+			<key row="0" interpolation="0" value="0"/>
+			<key row="152" interpolation="1" value="0"/>
+			<key row="160" interpolation="0" value="255"/>
+			<key row="224" interpolation="1" value="255"/>
+			<key row="240" interpolation="0" value="0"/>
+		</track>
+		<track name="credits_alpha">
+			<key row="1219" interpolation="0" value="255"/>
+		</track>
+		<track name="credits_idx">
+			<key row="1219" interpolation="0" value="1"/>
+			<key row="1240" interpolation="0" value="2"/>
+			<key row="1256" interpolation="0" value="3"/>
+			<key row="1344" interpolation="0" value="0"/>
 		</track>
 	</tracks>
 	<bookmarks/>
