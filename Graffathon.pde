@@ -10,7 +10,8 @@ boolean fullscreen = false;
 int w = 1280;
 int h = 720;
 
-PShader post;
+PShader white, chroma;
+ArrayList<PShader> shaders;
 
 void settings() {
   if (fullscreen) {
@@ -25,10 +26,11 @@ void setup() {
   noCursor();
   frameRate(60);
   
-  ml = Moonlander.initWithSoundtrack(this, "The_Polish_Ambassador_-_09_-_Fax_Travel.mp3", 120, 4);
+  ml = Moonlander.initWithSoundtrack(this, "The_Polish_Ambassador_-_09_-_Fax_Travel.mp3", 120, 16);
   ml.start();
   
-  post = loadShader("PostFrag.glsl");
+  white = loadShader("White.glsl");
+  chroma = loadShader("Chroma.glsl");
   
   frame = createGraphics(w, h, P3D);
 }
@@ -48,23 +50,26 @@ void draw() {
   
   frame.scale(height/720);
   frame.endDraw();
-  buff = frame.get();
   
   set_shader_params();
-  shader(post);
+  
+  buff = frame.get();
+  shader(chroma);
+  image(buff, 0, 0);
+  
+  buff = get();
+  shader(white);
   image(buff, 0, 0);
 }
 
 void set_shader_params() {
   float whiteout = (float)ml.getValue("whiteout");
-  float chroma = (float)ml.getValue("chroma");
-  int blur = (int)ml.getValue("blurring");
+  float chroma_intens = (float)ml.getValue("chroma");
   
-  post.set("whiteout", whiteout);
-  post.set("chroma", chroma);
-  post.set("blurring", blur);
+  white.set("whiteout_r", 1.0);
+  white.set("whiteout_g", 1.0);
+  white.set("whiteout_b", 1.0);
+  white.set("whiteout", whiteout);
   
-  post.set("whiteout_r", 1.0);
-  post.set("whiteout_g", 1.0);
-  post.set("whiteout_b", 1.0);
+  chroma.set("chroma", chroma_intens);
 }
