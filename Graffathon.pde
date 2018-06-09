@@ -123,6 +123,12 @@ void draw() {
     case 9:
       platon();
       break;
+    case 10:
+      neon_rain();
+      break;
+    case 11:
+      platon();
+      break;
   }
   frame.endDraw();
   
