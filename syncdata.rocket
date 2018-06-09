@@ -1,10 +1,5 @@
 <sync rows="1024">
 	<tracks>
-		<track name="scene">
-			<key value="1" row="0" interpolation="0"/>
-			<key value="2" row="96" interpolation="0"/>
-			<key value="3" row="144" interpolation="0"/>
-		</track>
 		<track name="whiteout">
 			<key value="0" row="0" interpolation="0"/>
 		</track>
@@ -40,6 +35,13 @@
 			<key value="2" row="64" interpolation="3"/>
 			<key value="0" row="66" interpolation="0"/>
 		</track>
+		<track name="pulse_rev">
+			<key value="1" row="0" interpolation="0"/>
+			<key value="-1" row="30" interpolation="0"/>
+			<key value="1" row="38" interpolation="0"/>
+			<key value="-1" row="54" interpolation="0"/>
+			<key value="1" row="62" interpolation="0"/>
+		</track>
 		<track name="opening">
 			<key value="0" row="84" interpolation="2"/>
 			<key value="1" row="92" interpolation="0"/>
@@ -56,11 +58,19 @@
 			<key value="0" row="136" interpolation="2"/>
 			<key value="50" row="152" interpolation="0"/>
 		</track>
+		<track name="scene">
+			<key value="1" row="0" interpolation="0"/>
+			<key value="2" row="96" interpolation="0"/>
+			<key value="3" row="272" interpolation="0"/>
+		</track>
 		<track name="platon_roty">
 			<key value="0" row="134" interpolation="1"/>
-			<key value="10" row="232" interpolation="0"/>
+			<key value="17.5" row="296" interpolation="0"/>
 		</track>
-		<track name="platon_rotz"/>
+		<track name="platon_rotz">
+			<key value="0" row="214" interpolation="2"/>
+			<key value="7.5" row="296" interpolation="0"/>
+		</track>
 		<track name="platon_rotx"/>
 	</tracks>
 	<bookmarks/>

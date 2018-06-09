@@ -63,6 +63,9 @@ void draw() {
     case 2:
       platon();
       break;
+    case 3:
+      visualization();
+      break;
   }
   frame.endDraw();
   
@@ -96,12 +99,13 @@ void set_shader_params() {
 
 void pulssi() {
   float pulse = (float)ml.getValue("pulse") * 240;
+  float pulse_rev = (float)ml.getValue("pulse_rev");
   frame.background(255);
   frame.noFill();
   frame.stroke(0, 0, 1);
   float weight = map((float)ml.getValue("opening"), 0.0, 1.0, 48.0, 720);
   frame.strokeWeight(weight);
-  frame.bezier(-680, 0, -120, -pulse, 120, pulse, 680, 0);
+  frame.bezier(-680, 0, -120, -pulse * pulse_rev, 120, pulse * pulse_rev, 680, 0);
 }
 
 void platon() {
@@ -113,7 +117,7 @@ void platon() {
   float roty = (float)ml.getValue("platon_roty");
   float rotz = (float)ml.getValue("platon_rotz");
   frame.stroke(10.0, 60, 80, floor);
-  frame.strokeWeight(3.0);
+  frame.strokeWeight(5.0);
   
   frame.translate(0.0, 40.0, 400.0);
   for (int i = 0; i <= 10; i++) {
@@ -138,6 +142,9 @@ void platon() {
     frame.shape(platonics[platonic-1]);
     frame.noLights();
     frame.popMatrix();
-  }
+  }  
+}
+
+void visualization() {
   
 }
