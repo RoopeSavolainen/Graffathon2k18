@@ -12,9 +12,15 @@ int h = 360;
 
 float whiteout;
 float chroma_intens;
+int neon_intens;
 
-PShader white, chroma;
+static int particlenum = 128;
+
+PShader white, chroma, neon;
 PShape[] platonics = new PShape[5];
+
+PVector[] particles = new PVector[particlenum];
+PVector[] particle_v = new PVector[particlenum];
 
 void settings() {
   if (fullscreen) {
@@ -29,11 +35,23 @@ void setup() {
   noCursor();
   frameRate(60);
   
+  randomSeed(1337387);
+  
+  for (int i = 0; i < particlenum; i++) {
+    float x = random(-640.0, 640.0);
+    float y = random(-640.0, 640.0);
+    float dx = random(-5.0, 5.0);
+    float dy = random(-5.0, 5.0);
+    particles[i] = new PVector(x, y);
+    particle_v[i] = new PVector(dx, dy);
+  }
+  
   ml = Moonlander.initWithSoundtrack(this, "The_Polish_Ambassador_-_09_-_Fax_Travel.mp3", 120, 4);
   ml.start();
   
   white = loadShader("White.glsl");
   chroma = loadShader("Chroma.glsl");
+  neon = loadShader("Neon.glsl");
   
   frame = createGraphics(w, h, P3D);
   
@@ -51,6 +69,7 @@ void draw() {
   int scene = (int)ml.getValue("scene");
   whiteout = (float)ml.getValue("whiteout");
   chroma_intens = (float)ml.getValue("chroma");
+  neon_intens = (int)ml.getValue("neon");
   
   frame.beginDraw();
   frame.translate(width/2.0, height/2.0);
@@ -64,7 +83,10 @@ void draw() {
       platon();
       break;
     case 3:
-      visualization();
+      particles();
+      break;
+    case 4:
+      platon();
       break;
   }
   frame.endDraw();
@@ -72,8 +94,13 @@ void draw() {
   set_shader_params();
   
   image(frame.get(), 0, 0);
-  if (chroma_intens >= 0.0) {
+  if (chroma_intens > 0.0) {
     shader(chroma);
+    image(get(), 0, 0);
+  }
+  
+  if (neon_intens > 0.0) {
+    shader(neon);
     image(get(), 0, 0);
   }
   
@@ -82,7 +109,7 @@ void draw() {
     filter(BLUR, blurring);
   }
   
-  if (whiteout >= 0.0) {
+  if (whiteout > 0.0) {
     shader(white);
     image(get(), 0, 0);
   }
@@ -95,6 +122,8 @@ void set_shader_params() {
   white.set("whiteout", whiteout);
   
   chroma.set("chroma", chroma_intens);
+  
+  neon.set("strength", neon_intens);
 }
 
 void pulssi() {
@@ -116,6 +145,11 @@ void platon() {
   float rotx = (float)ml.getValue("platon_rotx");
   float roty = (float)ml.getValue("platon_roty");
   float rotz = (float)ml.getValue("platon_rotz");
+  
+  float zoom = (float)ml.getValue("platon_zoom");
+  frame.translate(360 * zoom, 0.0);
+  frame.scale(zoom + 1.0);
+  
   frame.stroke(10.0, 60, 80, floor);
   frame.strokeWeight(5.0);
   
@@ -145,6 +179,28 @@ void platon() {
   }  
 }
 
-void visualization() {
+void particles() {
+  frame.background(255.0);
+  frame.strokeWeight(3.0);
+  frame.stroke(0.0, 0.0, 25.0, 255.0);
+  frame.fill(0.0, 0.0, 10.0, 255.0);
   
+  float t = (float)ml.getValue("particle_t"); 
+  for (int i = 0; i < particlenum; i++) {
+    frame.ellipse(particles[i].x + t*particle_v[i].y, particles[i].y + t*particle_v[i].y, 10, 10);
+  }
+  
+  frame.strokeWeight(2.0);
+  for (int i = 0; i < particlenum; i++) {
+    for (int j = i; j < particlenum; j++) {
+      PVector pos1 = new PVector(particles[i].x + t*particle_v[i].y, particles[i].y + t*particle_v[i].y);
+      PVector pos2 = new PVector(particles[j].x + t*particle_v[j].y, particles[j].y + t*particle_v[j].y);
+      float distx = pos1.x - pos2.x;
+      float disty = pos1.y - pos2.y;
+      float dist = sqrt(distx*distx + disty*disty);
+      float a = map(255.0 / dist, 1.0, 3.0, 0.0, 255.0);
+      frame.stroke(0.0, 0.0, 25.0, a);
+      frame.line(pos1.x, pos1.y, pos2.x, pos2.y);
+    }
+  }
 }
