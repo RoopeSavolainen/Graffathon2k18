@@ -114,12 +114,22 @@ void draw() {
     case 6:
       particles();
       break;
+    case 7:
+      platon();
+      break;
+    case 8:
+      growing_terrain();
+      break;
+    case 9:
+      platon();
+      break;
   }
   frame.endDraw();
   
   set_shader_params();
   
   image(frame.get(), 0, 0);
+
   if (chroma_intens > 0.0) {
     shader(chroma);
     image(get(), 0, 0);
@@ -261,4 +271,33 @@ void neon_rain() {
     
     frame.line(x1, y1, x2, y2);
   }
+}
+
+void growing_terrain() {
+  float t = (float)ml.getValue("terrain_t");
+  float ampl = (float)ml.getValue("terrain_ampl");
+  
+  frame.background(0.0);
+  frame.stroke(10.0, 60, 80, 16.0);
+  frame.strokeWeight(5.0);
+  frame.noFill();
+  
+  frame.pushMatrix();
+  frame.translate(0.0, 100.0, 0.0);
+  frame.rotateY(PI/8);
+  frame.rotateX(-PI/8);
+  frame.translate(0.0, 0.0, 0.0);
+  
+  float h;
+  for (int i = 0; i < 20; i++) {
+    frame.beginShape(QUAD_STRIP);
+    for (int j = 0; j <= 20; j++) {
+      h = -1.0 * noise(i, j, t) * ampl;
+      frame.vertex(-400.0 + 40*i, h, -400.0 + 40*j);
+      h = -1.0 * noise(i+1.0, j, t) * ampl;
+      frame.vertex(-400.0 + 40*i + 40.0, h, -400.0+40*j);
+    }
+    frame.endShape();
+  }
+  frame.popMatrix();
 }
