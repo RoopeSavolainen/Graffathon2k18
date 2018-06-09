@@ -2,11 +2,12 @@ import moonlander.library.*;
 
 import ddf.minim.*;
 
+static boolean release = false;
+
 Moonlander ml;
 PGraphics frame;
 PImage buff;
 
-boolean fullscreen = false;
 int w = 640;
 int h = 360;
 
@@ -29,7 +30,7 @@ PVector[] particles = new PVector[particlenum];
 PVector[] particle_v = new PVector[particlenum];
 
 void settings() {
-  if (fullscreen) {
+  if (release) {
     fullScreen(P2D);
   }
   else {
@@ -72,7 +73,7 @@ void setup() {
   chroma = loadShader("Chroma.glsl");
   neon = loadShader("Neon.glsl");
   
-  frame = createGraphics(w, h, P3D);
+  frame = createGraphics(width, height, P3D);
   
   for (int i = 1; i <= 5; i++) {
     String name = "plato" + i + ".obj";
