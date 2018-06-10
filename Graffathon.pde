@@ -148,19 +148,16 @@ void draw() {
   buffer.beginDraw();
   buffer.image(i, 0.0, 0.0, w, h);
     
+  if (chroma_intens > 0.0 || whiteout > 0.0 || bluramount > 0.0) {
+    buffer.shader(post);
+    buffer.image(buffer.get(), 0, 0);
+  }
+  
   if (neon_intens > 0.0) {
     buffer.shader(neon);
     buffer.image(buffer.get(), 0, 0);
   }
   
-  /*if (blurring > 0.0) {
-    filter(BLUR, blurring);
-  }*/
-  
-  if (chroma_intens > 0.0 || whiteout > 0.0 || bluramount > 0.0) {
-    buffer.shader(post);
-    buffer.image(buffer.get(), 0, 0);
-  }
   buffer.endDraw();
   
   image(buffer.get(), 0, 0, width, height);
