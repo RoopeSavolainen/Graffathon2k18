@@ -5,11 +5,10 @@ import ddf.minim.*;
 static boolean release = false;
 
 Moonlander ml;
-PGraphics frame;
-PImage buff;
+PGraphics frame, buffer;
 
-int w = 640;
-int h = 360;
+int w = 1280;
+int h = 720;
 
 float whiteout;
 float chroma_intens;
@@ -76,6 +75,7 @@ void setup() {
   neon = loadShader("Neon.glsl");
   
   frame = createGraphics(width, height, P3D);
+  buffer = createGraphics(w, h, P3D);
   
   f = loadFont("YanoneKaffeesatz-Regular-48.vlw");
   
@@ -141,27 +141,33 @@ void draw() {
   
   set_shader_params();
   
-  image(frame.get(), 0, 0);
-
+  PImage i = frame.get();
+  
+  buffer.beginDraw();
+  buffer.image(i, 0.0, 0.0, w, h);
+  
   if (chroma_intens > 0.0) {
-    shader(chroma);
-    image(get(), 0, 0);
+    buffer.shader(chroma);
+    buffer.image(buffer.get(), 0, 0);
   }
   
   if (neon_intens > 0.0) {
-    shader(neon);
-    image(get(), 0, 0);
+    buffer.shader(neon);
+    buffer.image(buffer.get(), 0, 0);
   }
   
   float blurring = (float)ml.getValue("blurring");
-  if (blurring >= 0.0) {
+  /*if (blurring > 0.0) {
     filter(BLUR, blurring);
-  }
+  }*/
   
   if (whiteout > 0.0) {
-    shader(white);
-    image(get(), 0, 0);
+    buffer.shader(white);
+    buffer.image(buffer.get(), 0, 0);
   }
+  buffer.endDraw();
+  
+  image(buffer.get(), 0, 0, width, height);
 }
 
 void set_shader_params() {
