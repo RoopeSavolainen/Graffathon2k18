@@ -14,6 +14,7 @@ float whiteout;
 float chroma_intens;
 float bluramount;
 int neon_intens;
+float display_noise;
 
 static int particlenum = 64;
 static int rainnum = 32;
@@ -23,7 +24,7 @@ PVector[] dropdir = new PVector[rainnum];
 float[] dropcol = new float[rainnum];
 float[] droplen = new float[rainnum];
 
-PShader post, neon;
+PShader post, neon, glitch;
 PShape[] platonics = new PShape[5];
 
 PVector[] particles = new PVector[particlenum];
@@ -33,8 +34,7 @@ PFont f;
 
 void settings() {
   if (release) {
-    //fullScreen(P2D);
-    size(1920,1080,P2D);
+    fullScreen(P2D);
   }
   else {
     size(w, h, P2D);
@@ -74,6 +74,7 @@ void setup() {
   
   post = loadShader("Post.glsl");
   neon = loadShader("Neon.glsl");
+  glitch = loadShader("Glitch.glsl");
   
   frame = createGraphics(width, height, P3D);
   buffer = createGraphics(w, h, P3D);
@@ -96,6 +97,7 @@ void draw() {
   chroma_intens = (float)ml.getValue("chroma");
   bluramount = (float)ml.getValue("blurring");
   neon_intens = (int)ml.getValue("neon");
+  display_noise = (float)ml.getValue("disp_noise");
   
   frame.beginDraw();
   frame.translate(width/2.0, height/2.0);
@@ -158,6 +160,11 @@ void draw() {
     buffer.image(buffer.get(), 0, 0);
   }
   
+  if (display_noise > 0.0) {
+    buffer.shader(glitch);
+    buffer.image(buffer.get(), 0, 0);
+  }
+  
   buffer.endDraw();
   
   image(buffer.get(), 0, 0, width, height);
@@ -167,6 +174,21 @@ void set_shader_params() {
   post.set("whiteout", whiteout);  
   post.set("chroma", chroma_intens);
   post.set("blur", bluramount);
+  
+  if (display_noise > 0.0) {
+    float start = map(noise(display_noise), 0.0, 1.0, 0.0, 0.99);
+    float str = map(noise(display_noise+200), 0.0, 1.0, -0.1, 0.1);
+    float len = map(noise(display_noise+400), 0.0, 1.0, 0.01, 0.1);
+    len = constrain(len, 0.0, 1.0-start);
+    glitch.set("glitch_row", start);
+    glitch.set("glitch_str", str);
+    glitch.set("glitch_len", len);
+  }
+  else {
+    post.set("glitch_row", -1.0);
+    post.set("glitch_str", 0.0);
+    post.set("glitch_len", 0.0);
+  }
   
   neon.set("strength", neon_intens);
 }
@@ -293,7 +315,7 @@ void particles() {
 
 void neon_rain() {
   frame.background(0.0);
-  frame.strokeWeight(3.0);
+  frame.strokeWeight(1.5);
   
   float t = (float)ml.getValue("drop_t");
   
