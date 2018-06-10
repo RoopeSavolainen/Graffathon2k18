@@ -2,7 +2,7 @@ import moonlander.library.*;
 
 import ddf.minim.*;
 
-static boolean release = false;
+static boolean release = true;
 
 Moonlander ml;
 PGraphics frame, buffer;
@@ -12,6 +12,7 @@ int h = 720;
 
 float whiteout;
 float chroma_intens;
+float bluramount;
 int neon_intens;
 
 static int particlenum = 64;
@@ -22,7 +23,7 @@ PVector[] dropdir = new PVector[rainnum];
 float[] dropcol = new float[rainnum];
 float[] droplen = new float[rainnum];
 
-PShader white, chroma, neon;
+PShader post, neon;
 PShape[] platonics = new PShape[5];
 
 PVector[] particles = new PVector[particlenum];
@@ -32,7 +33,8 @@ PFont f;
 
 void settings() {
   if (release) {
-    fullScreen(P2D);
+    //fullScreen(P2D);
+    size(1920,1080,P2D);
   }
   else {
     size(w, h, P2D);
@@ -70,8 +72,7 @@ void setup() {
   ml = Moonlander.initWithSoundtrack(this, "The_Polish_Ambassador_-_09_-_Fax_Travel.mp3", 120, 4);
   ml.start();
   
-  white = loadShader("White.glsl");
-  chroma = loadShader("Chroma.glsl");
+  post = loadShader("Post.glsl");
   neon = loadShader("Neon.glsl");
   
   frame = createGraphics(width, height, P3D);
@@ -93,6 +94,7 @@ void draw() {
   int scene = (int)ml.getValue("scene");
   whiteout = (float)ml.getValue("whiteout");
   chroma_intens = (float)ml.getValue("chroma");
+  bluramount = (float)ml.getValue("blurring");
   neon_intens = (int)ml.getValue("neon");
   
   frame.beginDraw();
@@ -145,24 +147,18 @@ void draw() {
   
   buffer.beginDraw();
   buffer.image(i, 0.0, 0.0, w, h);
-  
-  if (chroma_intens > 0.0) {
-    buffer.shader(chroma);
-    buffer.image(buffer.get(), 0, 0);
-  }
-  
+    
   if (neon_intens > 0.0) {
     buffer.shader(neon);
     buffer.image(buffer.get(), 0, 0);
   }
   
-  float blurring = (float)ml.getValue("blurring");
   /*if (blurring > 0.0) {
     filter(BLUR, blurring);
   }*/
   
-  if (whiteout > 0.0) {
-    buffer.shader(white);
+  if (chroma_intens > 0.0 || whiteout > 0.0 || bluramount > 0.0) {
+    buffer.shader(post);
     buffer.image(buffer.get(), 0, 0);
   }
   buffer.endDraw();
@@ -171,12 +167,9 @@ void draw() {
 }
 
 void set_shader_params() {
-  white.set("whiteout_r", 1.0);
-  white.set("whiteout_g", 1.0);
-  white.set("whiteout_b", 1.0);
-  white.set("whiteout", whiteout);
-  
-  chroma.set("chroma", chroma_intens);
+  post.set("whiteout", whiteout);  
+  post.set("chroma", chroma_intens);
+  post.set("blur", bluramount);
   
   neon.set("strength", neon_intens);
 }
@@ -303,12 +296,12 @@ void particles() {
 
 void neon_rain() {
   frame.background(0.0);
-  frame.strokeWeight(2.5);
+  frame.strokeWeight(3.0);
   
   float t = (float)ml.getValue("drop_t");
   
   for (int i = 0; i < rainnum; i++) {
-    frame.stroke(dropcol[i], 60.0, 60.0, 32.0);
+    frame.stroke(dropcol[i], 60.0, 100.0, 255.0);
     float x1 = dropx[i] + t*dropdir[i].x;
     float y1 = -360 + t*dropdir[i].y - i*dropdir[i].y;
     
