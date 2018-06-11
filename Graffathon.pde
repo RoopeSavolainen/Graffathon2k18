@@ -46,6 +46,7 @@ void setup() {
   frameRate(60);
   
   randomSeed(1337387);
+  noiseSeed(1337387);
   
   for (int i = 0; i < particlenum; i++) {
     float x = random(-640.0, 640.0);
@@ -77,7 +78,7 @@ void setup() {
   glitch = loadShader("Glitch.glsl");
   
   frame = createGraphics(width, height, P3D);
-  buffer = createGraphics(w, h, P3D);
+  buffer = createGraphics(width, height, P3D);
   
   f = loadFont("YanoneKaffeesatz-Regular-48.vlw");
   
@@ -145,29 +146,33 @@ void draw() {
   
   set_shader_params();
   
-  PImage i = frame.get();
+  buffer.beginDraw();
+  buffer.image(frame, 0.0, 0.0);
+  buffer.endDraw();
   
   buffer.beginDraw();
-  buffer.image(i, 0.0, 0.0, w, h);
-    
   if (chroma_intens > 0.0 || whiteout > 0.0 || bluramount > 0.0) {
     buffer.shader(post);
-    buffer.image(buffer.get(), 0, 0);
+    buffer.image(buffer, 0, 0);
   }
+  buffer.endDraw();
   
+  buffer.beginDraw();  
   if (neon_intens > 0.0) {
     buffer.shader(neon);
-    buffer.image(buffer.get(), 0, 0);
+    buffer.image(buffer, 0, 0);
   }
+  buffer.endDraw();
   
+  buffer.beginDraw();
   if (display_noise > 0.0) {
     buffer.shader(glitch);
-    buffer.image(buffer.get(), 0, 0);
+    buffer.image(buffer, 0, 0);
   }
   
   buffer.endDraw();
   
-  image(buffer.get(), 0, 0, width, height);
+  image(buffer.get(), 0, 0);
 }
 
 void set_shader_params() {
